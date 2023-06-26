@@ -4,9 +4,11 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
+import Button from "../Button";
 import IocnHolder from "../IconHolder";
 import trueLogo from "../../assets/true.png";
 import wronge from "../../assets/false.png";
+
 import "./style.css";
 import axios from "axios";
 // @ts-ignore
@@ -50,35 +52,44 @@ export default function RadioButtonsGroup({
           {selectedAns === "" ? (
             ""
           ) : selectedAns ? (
-            <>Right Answer</>
+            <>
+              {" "}
+              <IocnHolder src={trueLogo} /> Right Answer
+            </>
           ) : (
-            "Wronge Answer"
+            <>
+              {" "}
+              <IocnHolder src={wronge} /> Wronge Answer
+            </>
           )}{" "}
         </h1>
       )}
-      <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
-        value={value}
-        onChange={handleChange}
-        name="radio-buttons-group"
-      >
+      <RadioGroup value={value} onChange={handleChange}>
         {btns?.map((ele: string) => (
           <FormControlLabel
             disabled={submited}
             value={ele}
-            control={<Radio />}
+            control={
+              <Radio
+                sx={{
+                  color: "#9d85a1",
+                  "&.Mui-checked": {
+                    color: "#6a1b9a",
+                  },
+                }}
+              />
+            }
             label={ele}
           />
         ))}
       </RadioGroup>
-      <IocnHolder src={trueLogo} />
-      <IocnHolder src={wronge} />
-      <button
-        disabled={questionNumber == 10 || submited ? true : false}
-        onClick={handleSubmit}
-      >
-        Submit
-      </button>
+
+      <Button
+        width={"400px"}
+        text={"Submit"}
+        handleClick={handleSubmit}
+        disable={questionNumber == 10 || submited ? true : false}
+      />
     </FormControl>
   );
 }

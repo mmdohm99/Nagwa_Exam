@@ -17,13 +17,13 @@ const ProgressBar = () => {
     // @ts-ignore
     setAnswers,
   } = useContext(ExamContextModule);
-
+  console.log(questionNumber);
   return (
     <div
       className="container"
       style={{
         width: `${
-          (questionNumber === 10 ? questionNumber : questionNumber + 1) * 9.88
+          (questionNumber === 10 ? questionNumber : questionNumber + 1) * 9.68
         }%`,
       }}
     >

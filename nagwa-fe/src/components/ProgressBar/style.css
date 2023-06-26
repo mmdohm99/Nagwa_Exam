@@ -1,9 +1,11 @@
 .container {
-  background-color: violet;
-  color: whitesmoke;
+  background-color: var(--global--color-primary);
+  /* color: whitesmoke; */
+  color: var(--global--color-primary-white);
   display: flex;
   justify-content: center;
-
-  border-radius: 10%;
+  padding: 10px;
+  border-radius: 15px;
   margin: 10px;
+  transition: all 0.3s ease;
 }

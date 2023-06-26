@@ -4,7 +4,7 @@ import axios from "axios";
 import { ExamContextModule } from "../../contextApi/examModule";
 import RadioButtonsGroup from "../../components/RadioBtns";
 import ProgressBar from "../../components/ProgressBar";
-
+import Button from "../../components/Button";
 const arr = ["noun", "verb", "adjective", "adverb"];
 
 const Exam = () => {
@@ -35,7 +35,7 @@ const Exam = () => {
   useEffect(() => {
     async function getExam() {
       const response = await axios.get("/exam");
-   
+
       // @ts-ignore
       const localData = JSON.parse(localStorage.getItem("exam"));
 
@@ -76,9 +76,12 @@ const Exam = () => {
         btns={arr as [string]}
         // setstudentAnswer={setstudentAnswer}
       />
-      <button disabled={!submited} onClick={next}>
-        Next
-      </button>
+      <Button
+        width={"200px"}
+        text={"Next"}
+        disable={!submited}
+        handleClick={next}
+      />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import axios from "axios";
 import { ExamContextModule } from "../../contextApi/examModule";
 import { useNavigate } from "react-router-dom";
 const Resualt = () => {
+  const [resualt, setReasualt] = useState();
   const navigate = useNavigate();
   const {
     // @ts-ignore
@@ -30,10 +31,13 @@ const Resualt = () => {
 
   const trueAnswers = answers?.filter((a: any) => a === true);
   const score = trueAnswers?.length * 10;
+  console.log(score);
+  console.log(answers);
   useEffect(() => {
     async function getUser() {
       try {
         const response = await axios.post("/exam", { score });
+        setReasualt(response?.data?.resualt);
       } catch (error) {}
     }
     getUser();
@@ -46,7 +50,7 @@ const Resualt = () => {
   };
   return (
     <>
-      <div>Reeeesualt</div>
+      <div>{resualt}</div>
       <button onClick={handleAgian}>Agian</button>
     </>
   );

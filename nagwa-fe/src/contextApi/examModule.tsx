@@ -41,6 +41,7 @@ export default function ExamModule({ children }: any) {
         setSelectedAns,
         selectedAns,
         setQuestionNumber,
+        answers,
       }}
     >
       {children}
