@@ -1,29 +1,24 @@
 import Home from "./pages/home";
+import ResualtPage from "./pages/Resualt";
+import { useEffect } from "react";
 import Exam from "./modules/exam";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ExamModule from "./contextApi/examModule";
+import axios from "axios";
 function App() {
-  // useEffect(() => {
-  //   async function getUser() {
-  //     try {
-  //       const response = await axios.post("/exam", { score: 90 });
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   }
-  //   getUser();
-  // }, []);
+
+
   return (
     <>
-      <ExamModule>
-        <BrowserRouter>
+      <BrowserRouter>
+        <ExamModule>
           <Routes>
             <Route index element={<Home />} />
+            <Route path="/resualt" element={<ResualtPage />} />
             <Route path="/exam" element={<Exam />} />
           </Routes>
-        </BrowserRouter>
-      </ExamModule>
+        </ExamModule>
+      </BrowserRouter>
     </>
   );
 }

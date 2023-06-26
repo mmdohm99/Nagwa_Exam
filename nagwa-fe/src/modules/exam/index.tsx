@@ -1,32 +1,82 @@
-import React, { useEffect } from "react";
-import { useContext, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
+
+import axios from "axios";
 import { ExamContextModule } from "../../contextApi/examModule";
 import RadioButtonsGroup from "../../components/RadioBtns";
-const Exam = () => {
-  const arr = ["noun", "verb", "adjective", "adverb"];
-  // @ts-ignore
-  const { exam } = useContext(ExamContextModule);
+import ProgressBar from "../../components/ProgressBar";
 
-  const [questionNumber, setQuestionNumber] = useState(0);
-  const [studentAnswer, setstudentAnswer] = useState("");
-  const [correctAnswer, setCorrectAnswer] = useState("");
+const arr = ["noun", "verb", "adjective", "adverb"];
+
+const Exam = () => {
+  const {
+    // @ts-ignore
+    examQuestions,
+    // @ts-ignore
+    next,
+    // @ts-ignore
+    questionNumber,
+    // @ts-ignore
+    submited,
+    // @ts-ignore
+    setSubmited,
+    // @ts-ignore
+    setAnswers,
+    // @ts-ignore
+    setExamQuestions,
+    // @ts-ignore
+    setExam,
+    // @ts-ignore
+    setQuestionNumber,
+    // @ts-ignore
+    setSelectedAns,
+    // @ts-ignore
+    selectedAns,
+  } = useContext(ExamContextModule);
   useEffect(() => {
-    setCorrectAnswer(exam[questionNumber]?.pos);
-  }, [questionNumber, exam]);
-  console.log(correctAnswer);
-  console.log(studentAnswer === correctAnswer ? true : false);
-  const next = () => {
-    setQuestionNumber((prev) => (prev < 9 ? prev + 1 : prev));
-  };
+    async function getExam() {
+      const response = await axios.get("/exam");
+   
+      // @ts-ignore
+      const localData = JSON.parse(localStorage.getItem("exam"));
+
+      if (!localData || localData?.length == "0") {
+        setExam(response?.data);
+        // @ts-ignore
+        setExamQuestions(response?.data?.map((ele) => ele.word));
+      } else {
+        setExamQuestions(localData);
+      }
+    }
+    getExam();
+  }, [setExam, setExamQuestions]);
+  useEffect(() => {
+    // @ts-ignore
+    const localData = JSON.parse(localStorage.getItem("exam"));
+
+    // @ts-ignore
+    if (!localData || localData?.length == "0") {
+      localStorage.setItem("exam", JSON.stringify(examQuestions));
+    }
+    //
+  }, [examQuestions]);
 
   return (
     <div>
-      <h1>{exam && exam[questionNumber]?.word}</h1>
+      <ProgressBar />
+      <h1>{examQuestions[questionNumber]}</h1>
       <RadioButtonsGroup
+        setSelectedAns={setSelectedAns}
+        selectedAns={selectedAns}
+        setQuestionNumber={setQuestionNumber}
+        questionNumber={questionNumber}
+        setAnswers={setAnswers}
+        submited={submited}
+        setSubmited={setSubmited}
+        question={examQuestions[questionNumber] as string}
         btns={arr as [string]}
-        setstudentAnswer={setstudentAnswer}
+        // setstudentAnswer={setstudentAnswer}
       />
-      <button disabled={true} onClick={next}>
+      <button disabled={!submited} onClick={next}>
         Next
       </button>
     </div>
