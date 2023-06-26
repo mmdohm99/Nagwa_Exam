@@ -37,3 +37,11 @@ exports.examResult = async (req, res) => {
   );
   res?.send({ resualt: resualt });
 };
+
+exports.trueOrFalse = async (req, res) => {
+  const trueOrFalse = testData?.wordList?.find(
+    (word) => word?.word === req?.body?.word
+  );
+  const mark = req?.body?.a === trueOrFalse?.pos ? true : false;
+  res?.send({ mark: mark });
+};

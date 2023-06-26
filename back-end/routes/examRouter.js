@@ -6,6 +6,6 @@ examRouter
   .route("/")
   .get(examController.randomExam)
   .post(examController.examResult);
-
+examRouter.route("/resualt").post(examController.trueOrFalse);
 
 module.exports = examRouter;
