@@ -3,29 +3,17 @@ import React, { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { ExamContextModule } from "../../contextApi/examModule";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 const Resualt = () => {
   const [resualt, setReasualt] = useState();
   const navigate = useNavigate();
   const {
-    // @ts-ignore
-    examQuestions,
-    // @ts-ignore
-    next,
-    // @ts-ignore
-    questionNumber,
-    // @ts-ignore
-    submited,
-    // @ts-ignore
     setSubmited,
-    // @ts-ignore
+
     setAnswers,
-    // @ts-ignore
-    setExamQuestions,
-    // @ts-ignore
-    setExam,
-    // @ts-ignore
+
     setQuestionNumber,
-    // @ts-ignore
+
     answers,
   } = useContext(ExamContextModule);
 
@@ -51,7 +39,7 @@ const Resualt = () => {
   return (
     <>
       <div>{resualt}</div>
-      <button onClick={handleAgian}>Agian</button>
+      <Button text={"Agian"} handleClick={handleAgian} />
     </>
   );
 };

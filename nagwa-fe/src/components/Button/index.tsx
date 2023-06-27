@@ -3,8 +3,8 @@ import "./style.css";
 interface Props {
   text: string;
   handleClick: () => void;
-  disable: boolean;
-  width: string;
+  disable?: boolean;
+  width?: string;
 }
 const Button: React.FC<Props> = ({ text, handleClick, disable, width }) => {
   return (

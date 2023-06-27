@@ -1,9 +1,26 @@
 import React, { useState, useEffect, createContext, useCallback } from "react";
 
 import { useNavigate } from "react-router-dom";
-// @ts-ignore
-export const ExamContextModule = createContext();
+import { ExamContextState } from "./types";
+const contextDefaultValues: ExamContextState = {
+  // todos: [],
 
+  exam: [],
+  setExam: () => [],
+  next: () => "",
+  submited: false,
+  setSubmited: () => false,
+  answers: [],
+  setAnswers: () => [],
+  examQuestions: [],
+  setExamQuestions: () => [],
+  selectedAns: "",
+  setSelectedAns: () => "",
+  questionNumber: 0,
+  setQuestionNumber: () => 0,
+};
+export const ExamContextModule =
+  createContext<ExamContextState>(contextDefaultValues);
 export default function ExamModule({ children }: any) {
   const navigate = useNavigate();
   const [exam, setExam] = useState<any[]>([]);
@@ -27,21 +44,19 @@ export default function ExamModule({ children }: any) {
   return (
     <ExamContextModule.Provider
       value={{
-        // @ts-ignore
         exam,
-        // @ts-ignore
-        examQuestions,
-        questionNumber,
-        next,
-        submited,
-        setSubmited,
-        setAnswers,
-        setExamQuestions,
         setExam,
-        setSelectedAns,
-        selectedAns,
-        setQuestionNumber,
+        next,
+        setSubmited,
+        submited,
         answers,
+        setAnswers,
+        examQuestions,
+        setExamQuestions,
+        selectedAns,
+        setSelectedAns,
+        questionNumber,
+        setQuestionNumber,
       }}
     >
       {children}
