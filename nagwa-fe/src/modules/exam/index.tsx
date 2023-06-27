@@ -6,43 +6,35 @@ import RadioButtonsGroup from "../../components/RadioBtns";
 import ProgressBar from "../../components/ProgressBar";
 import Button from "../../components/Button";
 const arr = ["noun", "verb", "adjective", "adverb"];
+interface ele {
+  word: string;
+  pos: string;
+}
 
 const Exam = () => {
   const {
-    // @ts-ignore
     examQuestions,
-    // @ts-ignore
     next,
-    // @ts-ignore
     questionNumber,
-    // @ts-ignore
     submited,
-    // @ts-ignore
     setSubmited,
-    // @ts-ignore
     setAnswers,
-    // @ts-ignore
     setExamQuestions,
-    // @ts-ignore
     setExam,
-    // @ts-ignore
     setQuestionNumber,
-    // @ts-ignore
     setSelectedAns,
-    // @ts-ignore
     selectedAns,
   } = useContext(ExamContextModule);
   useEffect(() => {
     async function getExam() {
       const response = await axios.get("/exam");
 
-      // @ts-ignore
-      const localData = JSON.parse(localStorage.getItem("exam"));
+      const localData = JSON.parse(localStorage.getItem("exam") as string);
 
       if (!localData || localData?.length == "0") {
         setExam(response?.data);
-        // @ts-ignore
-        setExamQuestions(response?.data?.map((ele) => ele.word));
+
+        setExamQuestions(response?.data?.map((ele: ele) => ele.word));
       } else {
         setExamQuestions(localData);
       }
@@ -50,10 +42,8 @@ const Exam = () => {
     getExam();
   }, [setExam, setExamQuestions]);
   useEffect(() => {
-    // @ts-ignore
-    const localData = JSON.parse(localStorage.getItem("exam"));
+    const localData = JSON.parse(localStorage.getItem("exam") as string);
 
-    // @ts-ignore
     if (!localData || localData?.length == "0") {
       localStorage.setItem("exam", JSON.stringify(examQuestions));
     }
@@ -74,7 +64,6 @@ const Exam = () => {
         setSubmited={setSubmited}
         question={examQuestions[questionNumber] as string}
         btns={arr as [string]}
-        // setstudentAnswer={setstudentAnswer}
       />
       <Button
         width={"200px"}

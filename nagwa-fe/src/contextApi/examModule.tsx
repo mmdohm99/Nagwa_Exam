@@ -1,10 +1,7 @@
-import React, { useState, useEffect, createContext, useCallback } from "react";
-
+import React, { useState, createContext, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { ExamContextState } from "./types";
 const contextDefaultValues: ExamContextState = {
-  // todos: [],
-
   exam: [],
   setExam: () => [],
   next: () => "",
@@ -29,7 +26,7 @@ export default function ExamModule({ children }: any) {
   const [submited, setSubmited] = React.useState(false);
   const [answers, setAnswers] = React.useState([]);
   const [selectedAns, setSelectedAns] = React.useState("");
-  console.log(questionNumber);
+
   const next = () => {
     if (questionNumber === 10) {
       navigate(`/resualt`);

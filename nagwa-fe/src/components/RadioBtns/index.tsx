@@ -11,7 +11,7 @@ import wronge from "../../assets/false.png";
 
 import "./style.css";
 import axios from "axios";
-// @ts-ignore
+
 export default function RadioButtonsGroup({
   btns,
   question,
@@ -21,7 +21,7 @@ export default function RadioButtonsGroup({
   questionNumber,
   setQuestionNumber,
   setSelectedAns,
-  // @ts-ignore
+
   selectedAns,
 }: any) {
   const [value, setValue] = React.useState("");

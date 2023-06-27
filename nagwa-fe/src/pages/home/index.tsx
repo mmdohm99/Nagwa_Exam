@@ -1,19 +1,10 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-const Home = () => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    localStorage.removeItem("exam");
-  }, []);
-  const handleClick = () => {
-    navigate(`/exam`);
-  };
+import Home from "../../modules/home";
+const HomePage = () => {
   return (
-    <div>
-      <h1>Welcome To Nagwa Exams</h1>
-      <button onClick={handleClick}>Start Exam </button>
-    </div>
+    <>
+      <Home />
+    </>
   );
 };
 
-export default Home;
+export default HomePage;

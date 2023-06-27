@@ -1,5 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
-
+import { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { ExamContextModule } from "../../contextApi/examModule";
 import { useNavigate } from "react-router-dom";
@@ -7,20 +6,12 @@ import Button from "../../components/Button";
 const Resualt = () => {
   const [resualt, setReasualt] = useState();
   const navigate = useNavigate();
-  const {
-    setSubmited,
-
-    setAnswers,
-
-    setQuestionNumber,
-
-    answers,
-  } = useContext(ExamContextModule);
+  const { setSubmited, setAnswers, setQuestionNumber, answers } =
+    useContext(ExamContextModule);
 
   const trueAnswers = answers?.filter((a: any) => a === true);
   const score = trueAnswers?.length * 10;
-  console.log(score);
-  console.log(answers);
+
   useEffect(() => {
     async function getUser() {
       try {
