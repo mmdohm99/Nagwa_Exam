@@ -28,7 +28,7 @@ export default function ExamModule({ children }: any) {
   const [selectedAns, setSelectedAns] = React.useState("");
 
   const next = () => {
-    if (questionNumber === 10) {
+    if (questionNumber === 9) {
       navigate(`/resualt`);
     } else {
       setQuestionNumber((prev) => (prev < 10 ? prev + 1 : prev));

@@ -70,7 +70,7 @@ const Exam = () => {
         />
         <Button
           width={"200px"}
-          text={"Next"}
+          text={questionNumber === 9 ? "Finish" : "Next"}
           disable={!submited}
           handleClick={next}
         />

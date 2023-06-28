@@ -3,6 +3,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import FormLabel from "@mui/material/FormLabel";
 import Button from "../Button";
 import IocnHolder from "../IconHolder";
@@ -11,6 +13,7 @@ import wronge from "../../assets/false.png";
 
 import "./style.css";
 import axios from "axios";
+import { Container } from "@mui/material";
 
 export default function RadioButtonsGroup({
   btns,
@@ -21,7 +24,7 @@ export default function RadioButtonsGroup({
   questionNumber,
   setQuestionNumber,
   setSelectedAns,
-  
+
   selectedAns,
 }: any) {
   const [value, setValue] = React.useState("");
@@ -30,9 +33,6 @@ export default function RadioButtonsGroup({
     setValue(e.target.value);
   };
   const handleSubmit = async () => {
-    if (questionNumber == 9) {
-      setQuestionNumber((prev: any) => prev + 1);
-    }
     setSubmited(true);
     await axios
       .post("/exam/resualt", {
@@ -46,7 +46,7 @@ export default function RadioButtonsGroup({
   };
 
   return (
-    <FormControl>
+    <Container>
       {submited && (
         <h1 className={submited ? "show" : "hidden"}>
           {selectedAns === "" ? (
@@ -65,31 +65,39 @@ export default function RadioButtonsGroup({
         </h1>
       )}
       <RadioGroup value={value} onChange={handleChange}>
-        {btns?.map((ele: string) => (
-          <FormControlLabel
-            disabled={submited}
-            value={ele}
-            control={
-              <Radio
-                sx={{
-                  color: "#9d85a1",
-                  "&.Mui-checked": {
-                    color: "#6a1b9a",
-                  },
-                }}
+        <Grid
+          width={"100%"}
+          container
+          rowSpacing={1}
+          columnSpacing={{ xs: 1, sm: 2, md: 24 }}
+        >
+          {btns?.map((ele: string) => (
+            <Grid item xs={6}>
+              <FormControlLabel
+                disabled={submited}
+                value={ele}
+                control={
+                  <Radio
+                    sx={{
+                      color: "#9d85a1",
+                      "&.Mui-checked": {
+                        color: "#6a1b9a",
+                      },
+                    }}
+                  />
+                }
+                label={ele}
               />
-            }
-            label={ele}
-          />
-        ))}
+            </Grid>
+          ))}
+        </Grid>
       </RadioGroup>
-
       <Button
-        width={"400px"}
+        width={"100%"}
         text={"Submit"}
         handleClick={handleSubmit}
-        disable={questionNumber == 10 || submited ? true : false}
+        disable={submited}
       />
-    </FormControl>
+    </Container>
   );
 }
