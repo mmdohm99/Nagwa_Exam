@@ -6,7 +6,7 @@ const ProgressBar = () => {
 
   return (
     <div
-      className="container"
+      className="barContainer"
       style={{
         width: `${
           (questionNumber === 10 ? questionNumber : questionNumber + 1) * 9.68

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
@@ -11,7 +12,7 @@ const Home = () => {
   return (
     <div>
       <h1>Welcome To Nagwa Exams</h1>
-      <button onClick={handleClick}>Start Exam </button>
+      <Button handleClick={handleClick} text={"Take the exam"} />
     </div>
   );
 };

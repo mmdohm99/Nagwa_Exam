@@ -1,7 +1,7 @@
 import Home from "./pages/home";
-import ResualtPage from "./pages/Resualt";
+import ResualtPage from "./pages/resualt";
 import { useEffect } from "react";
-import Exam from "./modules/exam";
+import ExamPage from "./pages/exam";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ExamModule from "./contextApi/examModule";
 import axios from "axios";
@@ -15,7 +15,7 @@ function App() {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/resualt" element={<ResualtPage />} />
-            <Route path="/exam" element={<Exam />} />
+            <Route path="/exam" element={<ExamPage />} />
           </Routes>
         </ExamModule>
       </BrowserRouter>

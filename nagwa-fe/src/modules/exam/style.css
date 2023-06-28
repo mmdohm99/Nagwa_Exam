@@ -1,7 +1,7 @@
-.barContainer {
-  background-color: var(--global--color-primary);
+.container {
+  background-color:  var(--global--color-primary-white);
   /* color: whitesmoke; */
-  color: var(--global--color-primary-white);
+  /* color: var(--global--color-primary-white); */
   display: flex;
   justify-content: center;
   padding: 10px;

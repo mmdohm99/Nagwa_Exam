@@ -21,7 +21,7 @@ export default function RadioButtonsGroup({
   questionNumber,
   setQuestionNumber,
   setSelectedAns,
-
+  
   selectedAns,
 }: any) {
   const [value, setValue] = React.useState("");
