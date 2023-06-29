@@ -1,10 +1,10 @@
-import { useEffect, useContext, useState } from "react";
-import axios from "axios";
+import { useContext } from "react";
 import { ExamContextModule } from "../../contextApi/examModule";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
+import useFetch from "../../utlis/useFetch";
+
 const Resualt = () => {
-  const [resualt, setReasualt] = useState();
   const navigate = useNavigate();
   const { setSubmited, setAnswers, setQuestionNumber, answers } =
     useContext(ExamContextModule);
@@ -12,25 +12,30 @@ const Resualt = () => {
   const trueAnswers = answers?.filter((a: any) => a === true);
   const score = trueAnswers?.length * 10;
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const response = await axios.post("/exam", { score });
-        setReasualt(response?.data?.resualt);
-      } catch (error) {}
-    }
-    getUser();
-  }, [score]);
-  const handleAgian = () => {
+  const { response, loading } = useFetch({
+    method: "post",
+    url: `/exam`,
+    data: { score },
+  });
+
+  const handleAgianSame = () => {
     navigate(`/exam`);
     setAnswers([]);
     setSubmited(false);
     setQuestionNumber(0);
   };
+  const handleAgianNew = () => {
+    localStorage.removeItem("exam");
+    setAnswers([]);
+    setSubmited(false);
+    setQuestionNumber(0);
+    navigate(`/exam`);
+  };
   return (
     <>
-      <div>{resualt}</div>
-      <Button text={"Agian"} handleClick={handleAgian} />
+      <div>{response?.data?.resualt}</div>
+      <Button text={"AgianSame"} handleClick={handleAgianSame} />
+      <Button text={"AgianNew"} handleClick={handleAgianNew} />
     </>
   );
 };

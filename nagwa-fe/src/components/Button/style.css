@@ -11,16 +11,20 @@
 .btn:hover {
   transform: rotate(360deg);
   transform: scale(1.01);
-  color: var(--global--color-primary-lavander);
-  background-color: var(--global--color-primary-white);
+  color: var(--global--color-primary-white);
+  background-color: var(--global--color-secondry);
 }
 .btn:disabled,
 .btn[disabled] {
-  color: var(--global--color-primary-lavander);
-  background-color: var(--global--color-primary-white);
+  transition: none;
+  color: var(--global--color-primary-white);
+  background-color: var(--global--color-primary-ofWhite);
 }
 .btn:hover:disabled,
 .btn:hover[disabled] {
-  color: var(--global--color-primary-lavander);
-  background-color: var(--global--color-primary-white);
+  transition: none;
+  transform: none;
+  transform: none;
+  color: var(--global--color-primary-white);
+  background-color: var(--global--color-primary-ofWhite);
 }

@@ -24,7 +24,7 @@ const useFetch = (axiosParams: AxiosRequestConfig) => {
   };
 
   useEffect(() => {
-    if (axiosParams.method === "GET" || axiosParams.method === "get") {
+    if (axiosParams.method === "post" || axiosParams.method === "get") {
       fetchData(axiosParams);
     }
   }, []);
