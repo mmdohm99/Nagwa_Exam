@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { ExamContextModule } from "../../contextApi/examModule";
 import Container from "@mui/material/Container";
 import RadioButtonsGroup from "../../components/radioBtns";
@@ -26,7 +26,6 @@ const Exam = () => {
     setSelectedAns,
     selectedAns,
     setStarted,
-    
   } = useContext(ExamContextModule);
   const { response, loading } = useFetch({
     method: "get",
@@ -37,7 +36,7 @@ const Exam = () => {
   }, [setStarted, questionNumber]);
 
   localStorageExam(response as AxiosResponse, loading);
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     if (questionNumber === 9) {
       setStarted(true);
     }
@@ -53,7 +52,15 @@ const Exam = () => {
 
         setSelectedAns(() => response?.data?.mark as string);
       });
-  };
+  }, [
+    examQuestions,
+    questionNumber,
+    setAnswers,
+    setSelectedAns,
+    setStarted,
+    setSubmited,
+    value,
+  ]);
 
   return (
     <>
@@ -68,6 +75,7 @@ const Exam = () => {
             <Header
               title={`Question no.${questionNumber + 1}`}
               subTitle={`Identify the type of the following word : ${examQuestions[questionNumber]}`}
+              fetchedData={examQuestions[questionNumber]}
             />
             <PickResualt submited={submited} selectedAns={selectedAns} />
             <RadioButtonsGroup

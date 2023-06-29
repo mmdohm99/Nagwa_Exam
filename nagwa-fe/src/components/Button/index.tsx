@@ -6,18 +6,19 @@ interface Props {
   disable?: boolean;
   width?: string;
   height?: string;
+  fontSize?:string
 }
 const Button: React.FC<Props> = ({
   text,
   handleClick,
   disable,
   width,
-  height,
+  height,fontSize
 }) => {
   return (
     <>
       <button
-        style={{ width, height }}
+        style={{ width, height,fontSize }}
         className="btn"
         disabled={disable}
         onClick={handleClick}

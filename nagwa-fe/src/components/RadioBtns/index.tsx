@@ -2,22 +2,23 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
-
+import { useCallback } from "react";
 import "./style.css";
 import { Container } from "@mui/material";
 
 export default function RadioButtonsGroup({
   btns,
   submited,
-
-  selectedAns,
   setValue,
   value,
 }: any) {
-  const handleChange = (e: any) => {
-    setValue(e.target.value);
-  };
-
+  const handleChange = useCallback(
+    (e: any) => {
+      setValue(e.target.value);
+    },
+    [setValue]
+  );
+console.log(value)
   return (
     <Container>
       <RadioGroup value={value} onChange={handleChange}>

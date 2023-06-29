@@ -15,8 +15,8 @@ const AnswersBar = () => {
         marginLeft: 0,
       }}
     >
-      {answers?.map((ans) => (
-        <div className={"ansbarItem"}>
+      {answers?.map((ans,i) => (
+        <div key={i} className={"ansbarItem"}>
           {ans === (true as any) ? (
             <IocnHolder src={trueLogo} />
           ) : (

@@ -1,18 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/button";
+import { Container } from "@mui/material";
+import "./style.css";
 const Home = () => {
   const navigate = useNavigate();
-  useEffect(() => {
-    localStorage.removeItem("exam");
-  }, []);
-  const handleClick = () => {
+
+  const handleClick = useCallback(() => {
     navigate(`/exam`);
-  };
+  }, [navigate]);
   return (
-    <div>
-      <h1>Welcome To Nagwa Exams</h1>
-      <Button handleClick={handleClick} text={"Take the exam"} />
+    <div className="homeContainer">
+      <Container>
+        <h3 className="animate-charcter"> Welcome to Nagwa Exams .</h3>
+
+        <Button
+          width={"25%"}
+          height={"50px"}
+          handleClick={handleClick}
+          text={"Take the exam"}
+          fontSize={"27px"}
+        />
+      </Container>
     </div>
   );
 };

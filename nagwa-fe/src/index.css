@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #c5bfd4;
@@ -18,6 +18,3 @@ code {
   --global--color-primary-ofWhite: #b4a7d6;
   --global--color-primary-white: #eeeeee;
 }
-/* "Roboto", -apple-system, BlinkMacSystemFont, "Fira Sans",
-    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif; */

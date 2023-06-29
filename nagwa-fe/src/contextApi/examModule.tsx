@@ -28,7 +28,7 @@ export default function ExamModule({ children }: any) {
   const [selectedAns, setSelectedAns] = React.useState("");
   const [started, setStarted] = React.useState(false);
 
-  const next = () => {
+  const next = useCallback(() => {
     if (questionNumber === 9) {
       navigate(`/resualt`);
     } else {
@@ -37,7 +37,7 @@ export default function ExamModule({ children }: any) {
       setSubmited(false);
       setSelectedAns("");
     }
-  };
+  }, [navigate, questionNumber]);
 
   return (
     <ExamContextModule.Provider

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 
 const useFetch = (axiosParams: AxiosRequestConfig) => {
@@ -8,7 +8,7 @@ const useFetch = (axiosParams: AxiosRequestConfig) => {
     axiosParams.method === "GET" || axiosParams.method === "get"
   );
 
-  const fetchData = async (params: AxiosRequestConfig) => {
+  const fetchData = useCallback(async (params: AxiosRequestConfig) => {
     try {
       const result = await axios.request(params);
       setResponse(result);
@@ -17,11 +17,11 @@ const useFetch = (axiosParams: AxiosRequestConfig) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const sendData = () => {
+  const sendData = useCallback(() => {
     fetchData(axiosParams);
-  };
+  }, [fetchData]);
 
   useEffect(() => {
     if (axiosParams.method === "post" || axiosParams.method === "get") {
