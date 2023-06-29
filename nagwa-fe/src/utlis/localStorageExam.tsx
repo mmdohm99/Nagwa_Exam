@@ -1,11 +1,11 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext } from "react";
 import { ExamContextModule } from "../contextApi/examModule";
-
+import { AxiosResponse } from "axios";
 interface ele {
   word: string;
   pos: string;
 }
-const useLocalStorage = (response: any, loading: any) => {
+const useLocalStorage = (response: AxiosResponse, loading: boolean) => {
   const { setExamQuestions } = useContext(ExamContextModule);
 
   useEffect(() => {
@@ -13,7 +13,6 @@ const useLocalStorage = (response: any, loading: any) => {
       if (!loading) {
         const localData = JSON.parse(localStorage.getItem("exam") as string);
         if (!localData || localData?.length === 0) {
-          // setExam(response?.data);
           setExamQuestions(response?.data?.map((ele: ele) => ele?.word));
           localStorage.setItem(
             "exam",

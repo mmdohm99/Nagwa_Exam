@@ -5,12 +5,19 @@ interface Props {
   handleClick: () => void;
   disable?: boolean;
   width?: string;
+  height?: string;
 }
-const Button: React.FC<Props> = ({ text, handleClick, disable, width }) => {
+const Button: React.FC<Props> = ({
+  text,
+  handleClick,
+  disable,
+  width,
+  height,
+}) => {
   return (
     <>
       <button
-        style={{ width }}
+        style={{ width, height }}
         className="btn"
         disabled={disable}
         onClick={handleClick}

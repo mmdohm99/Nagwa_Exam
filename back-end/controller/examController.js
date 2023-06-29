@@ -42,6 +42,7 @@ exports.trueOrFalse = async (req, res) => {
   const trueOrFalse = testData?.wordList?.find(
     (word) => word?.word === req?.body?.word
   );
+  console.log(req?.body);
   const mark = req?.body?.a === trueOrFalse?.pos ? true : false;
   res?.send({ mark: mark });
 };

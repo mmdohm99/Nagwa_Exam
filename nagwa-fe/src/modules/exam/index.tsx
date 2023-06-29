@@ -1,14 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ExamContextModule } from "../../contextApi/examModule";
 import Container from "@mui/material/Container";
 import RadioButtonsGroup from "../../components/radioBtns";
 import ProgressBar from "../../components/progressBar";
+import AnswersBar from "../../components/answersBar";
 import Button from "../../components/button";
 import "./style.css";
 import useFetch from "../../utlis/useFetch";
 import localStorageExam from "../../utlis/localStorageExam";
-import axios from "axios";
-const arr = ["noun", "verb", "adjective", "adverb"];
+import axios, { AxiosResponse } from "axios";
+import PickResualt from "../../components/pickResualt";
+import Loader from "../../components/loader";
+import Header from "../../components/header";
+const arr = ["Noun", "Verb", "Adjective", "Adverb"];
 
 const Exam = () => {
   const [value, setValue] = useState("");
@@ -19,50 +23,79 @@ const Exam = () => {
     submited,
     setSubmited,
     setAnswers,
-    setQuestionNumber,
     setSelectedAns,
     selectedAns,
+    setStarted,
+    
   } = useContext(ExamContextModule);
   const { response, loading } = useFetch({
     method: "get",
     url: `/exam`,
   });
-  localStorageExam(response, loading);
+  useEffect(() => {
+    questionNumber === 0 && setStarted(false);
+  }, [setStarted, questionNumber]);
+
+  localStorageExam(response as AxiosResponse, loading);
   const handleSubmit = async () => {
+    if (questionNumber === 9) {
+      setStarted(true);
+    }
+
     setSubmited(true);
     await axios
       .post("/exam/resualt", {
         word: examQuestions[questionNumber],
-        a: value,
+        a: value?.toLowerCase(),
       })
       .then((response) => {
-        // @ts-ignore
-        setAnswers((prev: any) => [...prev, response?.data?.mark] as any);
-        // @ts-ignore
-        setSelectedAns(() => response?.data?.mark as any);
+        setAnswers((prev: []) => [...prev, response?.data?.mark]);
+
+        setSelectedAns(() => response?.data?.mark as string);
       });
   };
 
   return (
     <>
       <Container className="container">
-        <ProgressBar />
-        <h1>{examQuestions[questionNumber]}</h1>
-        <RadioButtonsGroup
-          submited={submited}
-          btns={arr as [string]}
-          setValue={setValue}
-          handleSubmit={handleSubmit}
-          selectedAns={selectedAns}
-          value={value}
-        />
-
-        <Button
-          width={"200px"}
-          text={questionNumber === 9 ? "Finish" : "Next"}
-          disable={!submited}
-          handleClick={next}
-        />
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            {" "}
+            <ProgressBar />
+            <AnswersBar />
+            <Header
+              title={`Question no.${questionNumber + 1}`}
+              subTitle={`Identify the type of the following word : ${examQuestions[questionNumber]}`}
+            />
+            <PickResualt submited={submited} selectedAns={selectedAns} />
+            <RadioButtonsGroup
+              submited={submited}
+              btns={arr as [string]}
+              setValue={setValue}
+              handleSubmit={handleSubmit}
+              selectedAns={selectedAns}
+              value={value}
+            />
+            <Container className="btnContainer">
+              <Button
+                width={"45%"}
+                text={"Submit"}
+                handleClick={handleSubmit}
+                disable={submited}
+                height={"40px"}
+              />
+              <Button
+                width={"45%"}
+                text={questionNumber === 9 ? "Finish" : "Next"}
+                disable={!submited}
+                handleClick={next}
+                height={"40px"}
+              />
+            </Container>
+          </>
+        )}
       </Container>
     </>
   );

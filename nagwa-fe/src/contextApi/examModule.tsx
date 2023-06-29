@@ -13,6 +13,8 @@ const contextDefaultValues: ExamContextState = {
   setSelectedAns: () => "",
   questionNumber: 0,
   setQuestionNumber: () => 0,
+  started: false,
+  setStarted: () => false,
 };
 export const ExamContextModule =
   createContext<ExamContextState>(contextDefaultValues);
@@ -24,8 +26,8 @@ export default function ExamModule({ children }: any) {
   const [submited, setSubmited] = React.useState(false);
   const [answers, setAnswers] = React.useState([]);
   const [selectedAns, setSelectedAns] = React.useState("");
-  
-  console.log(selectedAns);
+  const [started, setStarted] = React.useState(false);
+
   const next = () => {
     if (questionNumber === 9) {
       navigate(`/resualt`);
@@ -51,6 +53,8 @@ export default function ExamModule({ children }: any) {
         setSelectedAns,
         questionNumber,
         setQuestionNumber,
+        setStarted,
+        started,
       }}
     >
       {children}

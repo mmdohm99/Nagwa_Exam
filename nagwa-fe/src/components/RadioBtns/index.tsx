@@ -2,17 +2,14 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
-import Button from "../button";
-import IocnHolder from "../IconHolder";
-import trueLogo from "../../assets/true.png";
-import wronge from "../../assets/false.png";
+
 import "./style.css";
 import { Container } from "@mui/material";
 
 export default function RadioButtonsGroup({
   btns,
   submited,
-  handleSubmit,
+
   selectedAns,
   setValue,
   value,
@@ -23,29 +20,12 @@ export default function RadioButtonsGroup({
 
   return (
     <Container>
-      {submited && (
-        <h1 className={submited ? "show" : "hidden"}>
-          {selectedAns === "" ? (
-            ""
-          ) : selectedAns ? (
-            <>
-              {" "}
-              <IocnHolder src={trueLogo} /> Right Answer
-            </>
-          ) : (
-            <>
-              {" "}
-              <IocnHolder src={wronge} /> Wronge Answer
-            </>
-          )}{" "}
-        </h1>
-      )}
       <RadioGroup value={value} onChange={handleChange}>
         <Grid
           width={"100%"}
           container
-          rowSpacing={1}
-          columnSpacing={{ xs: 1, sm: 2, md: 24 }}
+          rowSpacing={2}
+          columnSpacing={{ xs: 1, sm: 2, md: 1 }}
         >
           {btns?.map((ele: string, i: number) => (
             <Grid key={i} item xs={6}>
@@ -68,12 +48,6 @@ export default function RadioButtonsGroup({
           ))}
         </Grid>
       </RadioGroup>
-      <Button
-        width={"100%"}
-        text={"Submit"}
-        handleClick={handleSubmit}
-        disable={submited}
-      />
     </Container>
   );
 }

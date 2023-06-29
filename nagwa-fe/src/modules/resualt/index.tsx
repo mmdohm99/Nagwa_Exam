@@ -31,11 +31,19 @@ const Resualt = () => {
     setQuestionNumber(0);
     navigate(`/exam`);
   };
+  const handleHome = () => {
+    localStorage.removeItem("exam");
+    setAnswers([]);
+    setSubmited(false);
+    setQuestionNumber(0);
+    navigate(`/`);
+  };
   return (
     <>
       <div>{response?.data?.resualt}</div>
       <Button text={"AgianSame"} handleClick={handleAgianSame} />
       <Button text={"AgianNew"} handleClick={handleAgianNew} />
+      <Button text={"Home"} handleClick={handleHome} />
     </>
   );
 };
