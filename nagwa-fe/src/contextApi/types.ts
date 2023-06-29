@@ -1,6 +1,5 @@
 export type ExamContextState = {
-  exam: string[];
-  setExam: (arr: string[]) => void;
+
   next: () => void;
   submited: boolean;
   setSubmited: (sub: boolean) => void;

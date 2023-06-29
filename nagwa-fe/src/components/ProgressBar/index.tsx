@@ -1,20 +1,20 @@
 import { useContext } from "react";
 import { ExamContextModule } from "../../contextApi/examModule";
+import Container from "@mui/material/Container";
 import "./style.css";
 const ProgressBar = () => {
   const { questionNumber } = useContext(ExamContextModule);
 
   return (
-    <div
+    <Container
       className="barContainer"
       style={{
-        width: `${
-          (questionNumber === 10 ? questionNumber : questionNumber + 1) * 9.68
-        }%`,
+        width: `${(questionNumber + 1) * 10}%`,
+        marginLeft: 0,
       }}
     >
-      {(questionNumber === 10 ? questionNumber : questionNumber + 1) * 10}%
-    </div>
+      {(questionNumber + 1) * 10}%
+    </Container>
   );
 };
 

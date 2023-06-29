@@ -2,7 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import axios from "axios";
 import { ExamContextModule } from "../../contextApi/examModule";
 import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
+import Button from "../../components/button";
 const Resualt = () => {
   const [resualt, setReasualt] = useState();
   const navigate = useNavigate();

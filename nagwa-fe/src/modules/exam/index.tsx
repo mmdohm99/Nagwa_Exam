@@ -1,19 +1,17 @@
-import React, { useEffect, useContext, useState } from "react";
-import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
-import axios from "axios";
+import { useContext, useState } from "react";
 import { ExamContextModule } from "../../contextApi/examModule";
-import RadioButtonsGroup from "../../components/RadioBtns";
-import ProgressBar from "../../components/ProgressBar";
-import Button from "../../components/Button";
+import Container from "@mui/material/Container";
+import RadioButtonsGroup from "../../components/radioBtns";
+import ProgressBar from "../../components/progressBar";
+import Button from "../../components/button";
 import "./style.css";
+import useFetch from "../../utlis/useFetch";
+import localStorageExam from "../../utlis/localStorageExam";
+import axios from "axios";
 const arr = ["noun", "verb", "adjective", "adverb"];
-interface ele {
-  word: string;
-  pos: string;
-}
 
 const Exam = () => {
+  const [value, setValue] = useState("");
   const {
     examQuestions,
     next,
@@ -21,36 +19,29 @@ const Exam = () => {
     submited,
     setSubmited,
     setAnswers,
-    setExamQuestions,
-    setExam,
     setQuestionNumber,
     setSelectedAns,
     selectedAns,
   } = useContext(ExamContextModule);
-  useEffect(() => {
-    async function getExam() {
-      const response = await axios.get("/exam");
-
-      const localData = JSON.parse(localStorage.getItem("exam") as string);
-
-      if (!localData || localData?.length == "0") {
-        setExam(response?.data);
-
-        setExamQuestions(response?.data?.map((ele: ele) => ele.word));
-      } else {
-        setExamQuestions(localData);
-      }
-    }
-    getExam();
-  }, [setExam, setExamQuestions]);
-  useEffect(() => {
-    const localData = JSON.parse(localStorage.getItem("exam") as string);
-
-    if (!localData || localData?.length == "0") {
-      localStorage.setItem("exam", JSON.stringify(examQuestions));
-    }
-    //
-  }, [examQuestions]);
+  const { response, loading } = useFetch({
+    method: "get",
+    url: `/exam`,
+  });
+  localStorageExam(response, loading);
+  const handleSubmit = async () => {
+    setSubmited(true);
+    await axios
+      .post("/exam/resualt", {
+        word: examQuestions[questionNumber],
+        a: value,
+      })
+      .then((response) => {
+        // @ts-ignore
+        setAnswers((prev: any) => [...prev, response?.data?.mark] as any);
+        // @ts-ignore
+        setSelectedAns(() => response?.data?.mark as any);
+      });
+  };
 
   return (
     <>
@@ -58,16 +49,14 @@ const Exam = () => {
         <ProgressBar />
         <h1>{examQuestions[questionNumber]}</h1>
         <RadioButtonsGroup
-          setSelectedAns={setSelectedAns}
-          selectedAns={selectedAns}
-          setQuestionNumber={setQuestionNumber}
-          questionNumber={questionNumber}
-          setAnswers={setAnswers}
           submited={submited}
-          setSubmited={setSubmited}
-          question={examQuestions[questionNumber] as string}
           btns={arr as [string]}
+          setValue={setValue}
+          handleSubmit={handleSubmit}
+          selectedAns={selectedAns}
+          value={value}
         />
+
         <Button
           width={"200px"}
           text={questionNumber === 9 ? "Finish" : "Next"}
