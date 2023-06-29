@@ -15,7 +15,7 @@ const Home = () => {
         <h3 className="animate-charcter"> Welcome to Nagwa Exams .</h3>
 
         <Button
-          width={"25%"}
+          width={"29%"}
           height={"50px"}
           handleClick={handleClick}
           text={"Take the exam"}

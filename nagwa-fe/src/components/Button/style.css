@@ -7,6 +7,7 @@
   padding: 5px;
   margin: 5px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 .btn:hover {
   transform: rotate(360deg);
@@ -19,6 +20,7 @@
   transition: none;
   color: var(--global--color-primary-white);
   background-color: var(--global--color-primary-ofWhite);
+  cursor: not-allowed;
 }
 .btn:hover:disabled,
 .btn:hover[disabled] {
